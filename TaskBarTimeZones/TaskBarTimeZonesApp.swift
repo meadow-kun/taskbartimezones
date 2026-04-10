@@ -49,8 +49,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Settings...", action: #selector(openSettings), keyEquivalent: ","))
         menu.addItem(NSMenuItem.separator())
+
+        let aboutItem = NSMenuItem(title: "About", action: nil, keyEquivalent: "")
+        let aboutMenu = NSMenu()
+        let linkedIn = NSMenuItem(title: "Philip Nordenfelt on LinkedIn", action: #selector(openLinkedIn), keyEquivalent: "")
+        let github = NSMenuItem(title: "GitHub", action: #selector(openGitHub), keyEquivalent: "")
+        aboutMenu.addItem(linkedIn)
+        aboutMenu.addItem(github)
+        aboutItem.submenu = aboutMenu
+        menu.addItem(aboutItem)
+
+        menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(quit), keyEquivalent: "q"))
         statusItem.menu = menu
+    }
+
+    @objc private func openLinkedIn() {
+        NSWorkspace.shared.open(URL(string: "https://www.linkedin.com/in/philipnordenfelt")!)
+    }
+
+    @objc private func openGitHub() {
+        NSWorkspace.shared.open(URL(string: "https://github.com/meadow-kun/taskbartimezones")!)
     }
 
     @objc private func openSettings() {
