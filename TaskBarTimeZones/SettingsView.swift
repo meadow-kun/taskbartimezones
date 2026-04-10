@@ -1,4 +1,5 @@
 import SwiftUI
+import ServiceManagement
 
 struct SettingsView: View {
     @ObservedObject var manager: TimeZoneManager
@@ -6,6 +7,7 @@ struct SettingsView: View {
 
     @State private var newLabel = ""
     @State private var newTimezoneID = "America/New_York"
+    @State private var launchAtLogin = SMAppService.mainApp.status == .enabled
 
     private var sortedTimezoneIDs: [String] {
         TimeZone.knownTimeZoneIdentifiers.sorted()
@@ -43,6 +45,23 @@ struct SettingsView: View {
                     onChange()
                 }
             }
+
+            Divider()
+
+            Toggle("Launch at Login", isOn: $launchAtLogin)
+                .padding(.horizontal)
+                .padding(.top, 8)
+                .onChange(of: launchAtLogin) { newValue in
+                    do {
+                        if newValue {
+                            try SMAppService.mainApp.register()
+                        } else {
+                            try SMAppService.mainApp.unregister()
+                        }
+                    } catch {
+                        launchAtLogin = SMAppService.mainApp.status == .enabled
+                    }
+                }
 
             Divider()
 
