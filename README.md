@@ -49,7 +49,3 @@ To create a DMG installer:
 ```bash
 ./create-dmg.sh
 ```
-
-## Author
-
-

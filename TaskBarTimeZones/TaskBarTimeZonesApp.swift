@@ -52,9 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let aboutItem = NSMenuItem(title: "About", action: nil, keyEquivalent: "")
         let aboutMenu = NSMenu()
-        let linkedIn = NSMenuItem(title: "GitHub", action: #selector(openLinkedIn), keyEquivalent: "")
         let github = NSMenuItem(title: "GitHub", action: #selector(openGitHub), keyEquivalent: "")
-        aboutMenu.addItem(linkedIn)
         aboutMenu.addItem(github)
         aboutItem.submenu = aboutMenu
         menu.addItem(aboutItem)
@@ -62,10 +60,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(quit), keyEquivalent: "q"))
         statusItem.menu = menu
-    }
-
-    @objc private func openLinkedIn() {
-        NSWorkspace.shared.open(URL(string: "https://github.com/meadow-kun/taskbartimezones")!)
     }
 
     @objc private func openGitHub() {
